@@ -1,0 +1,162 @@
+"use client"
+
+import * as React from "react"
+import { motion } from "framer-motion"
+import { Heart, Activity, Factory } from "lucide-react"
+
+export function AboutMission() {
+  const timeline = [
+    {
+      title: "Waste Collection in Gulu",
+      description: "Tackling the accumulation of plastic waste in our environment due to limited recycling infrastructure.",
+      icon: Activity,
+    },
+    {
+      title: "Youth Employment & Healing",
+      description: "Creating income opportunities for the marginalized and opportunities for healing for trauma survivors.",
+      icon: Heart,
+    },
+    {
+      title: "Machinery Manufacturing",
+      description: "Developing ground-breaking technology and designing machines to safely process plastic locally.",
+      icon: Factory,
+    }
+  ]
+
+  const partners = [
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1567906939943-VHSM5X41M2RONP1HO8E5/uc-berkeley-logo-seal.jpg",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/bb03f1e7-cdfb-460f-891b-1f59a56e08e6/EGlogo-brightgreen.png",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/7c0cb873-e4ce-47b4-bd35-994409a6a186/CEEDUganda.png",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/c7ce5f4b-d754-4a58-ba39-d48b3b33a9b0/Ministry.jpg",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/a34de5fc-3ac7-4cd0-a558-c348b27d2423/NATURES.png",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/93d1b0ef-430d-41a5-bf33-e71e3feb9b22/NWSC.jpg",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/982be887-8c29-46c1-920b-0afe93c9f1c9/stanford.png",
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/36cc46a4-cea8-415f-8be1-ec017743def0/RuddSquareLogo_Blue.png"
+  ]
+
+  return (
+    <section id="about" className="py-16 bg-bg-primary">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center mb-10">
+          <h2 className="text-3xl md:text-5xl font-bold text-text-primary mb-6">Our Mission & Vision</h2>
+          <p className="text-text-secondary text-lg mb-4">
+            We are innovating solutions to waste challenges that build a circular economy while creating jobs and a healing workplace for at-risk populations.
+          </p>
+          <p className="text-text-secondary text-lg mb-8">
+            A world where waste is transformed into a resource and communities are empowered.
+          </p>
+          
+          <div className="bg-brand-primary/10 p-6 rounded-2xl border border-brand-primary/20 text-left mb-8">
+            <h3 className="text-xl font-bold text-brand-primary mb-2">How it all started</h3>
+            <p className="text-text-primary">
+              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She worked with Gulu University students to conduct an assessment of plastic waste in Gulu and interview 200+ people. Paige also met Peter who was working on plastic waste education through an organization he started called AfriGreen Sustain. They partnered together to form Takataka Plastics, and in January 2020, they opened a small plastic collection center, hired three staff, built prototype machines, and received Takataka's first order. Now, Takataka Plastics can't produce enough to keep up with the demand for our wall tiles, so we're working on scaling up operations in Gulu City to make more products and create more jobs and a cleaner, healthier environment.
+            </p>
+          </div>
+
+          <div className="bg-brand-primary/5 p-6 rounded-2xl border border-brand-primary/10 text-left">
+            <h3 className="text-xl font-bold text-brand-primary mb-2">What does "Takataka" mean?</h3>
+            <p className="text-text-primary italic">
+              "A Swahili word that generally means 'waste,' 'garbage,' 'rubbish,' or 'trash.' It can also refer to 'dirt' or 'soil'. The term is used to describe discarded or unwanted materials."
+            </p>
+          </div>
+        </div>
+
+        {/* Timeline */}
+        <div className="max-w-4xl mx-auto relative mb-24 mt-12">
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-border hidden md:block"></div>
+          
+          <div className="space-y-12">
+            {timeline.map((item, index) => {
+              const Icon = item.icon
+              const isEven = index % 2 === 0
+              return (
+                <div key={item.title} className={`relative flex flex-col md:flex-row items-center justify-between w-full ${isEven ? 'md:flex-row-reverse' : ''}`}>
+                  
+                  {/* Center Dot */}
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full border-4 border-bg-primary bg-brand-primary hidden md:flex items-center justify-center text-white z-10 shadow-lg">
+                    <Icon className="w-5 h-5" />
+                  </div>
+
+                  {/* Content Card */}
+                  <motion.div 
+                    initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full md:w-5/12 bg-bg-surface p-6 rounded-2xl shadow-sm border border-border hover:shadow-[0_0_25px_rgba(34,197,94,0.15)] hover:border-brand-primary/40 transition-all duration-300"
+                  >
+                    <div className="md:hidden flex items-center gap-3 mb-4 text-brand-primary">
+                      <div className="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-text-primary mb-2">{item.title}</h3>
+                    <p className="text-text-secondary">{item.description}</p>
+                  </motion.div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Founders */}
+        <div className="max-w-4xl mx-auto bg-brand-primary/5 rounded-3xl p-8 md:p-12 border border-brand-primary/10 mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-text-primary mb-4">Meet The Founders</h2>
+            <p className="text-text-secondary">
+              Innovators dedicated to social impact and sustainable engineering.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="flex flex-col items-center text-center group relative">
+              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
+                <img src="https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG" alt="Peter Okwoko" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-xl font-bold text-text-primary mb-2">Peter Okwoko</h3>
+              <p className="text-brand-primary font-medium mb-4">Co-Founder</p>
+              
+              {/* Hover Card */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
+                <p className="text-sm text-text-secondary text-left relative z-10">
+                  Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is the founder of AfriGreen Sustain and co-founder of Hashtag Gulu. Peter is a 2022 Echoing Green Fellow and the winner of the 2020 DANIDA Alumni Prize.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col items-center text-center group relative">
+              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
+                <img src="https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG" alt="Paige Balcom" className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-xl font-bold text-text-primary mb-2">Paige Balcom</h3>
+              <p className="text-brand-primary font-medium mb-4">Co-Founder</p>
+              
+              {/* Hover Card */}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
+                <p className="text-sm text-text-secondary text-left relative z-10">
+                  Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has received several fellowships and awards including those from the National Science Foundation, UC Berkeley, Fulbright Program, USAID, the Institute of International Education, and the Lemelson-MIT Student Prize.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Partners Section */}
+        <div className="mt-16 text-center max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-text-primary mb-10">Our Partners</h2>
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
+            {partners.map((partner, idx) => (
+              <div key={idx} className="w-24 md:w-32 h-auto grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                <img src={partner} alt="Partner Logo" className="max-w-full max-h-24 object-contain mix-blend-multiply" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
