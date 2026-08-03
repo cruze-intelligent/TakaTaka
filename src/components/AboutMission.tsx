@@ -12,18 +12,21 @@ export function AboutMission() {
   const founderRefs = React.useRef<(HTMLDivElement | null)[]>([])
   const cardRefs = React.useRef<(HTMLDivElement | null)[]>([])
 
+  // Only install document handlers in the browser while a sticky card is open.
   React.useEffect(() => {
     if (openCard === null) return
+    if (typeof document === "undefined") return
 
     function handlePointerDown(e: PointerEvent) {
       const target = e.target as Node | null
       const founderEl = founderRefs.current[openCard]
       const cardEl = cardRefs.current[openCard]
 
+      // If the pointer is inside the founder tile or the card, do nothing.
       if (target && founderEl && founderEl.contains(target)) return
       if (target && cardEl && cardEl.contains(target)) return
 
-      // clicked outside the open card and its founder tile -> close
+      // Clicked outside -> close sticky card
       setOpenCard(null)
     }
 
@@ -84,7 +87,7 @@ export function AboutMission() {
       title: "Co-Founder",
       img: "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG",
       text:
-        "Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...].",
+        "Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...]",
     },
   ]
 
@@ -92,21 +95,28 @@ export function AboutMission() {
     <section id="about" className="py-16 bg-bg-primary">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center mb-10">
-          <h2 className="text-3xl md:text-5xl font-bold text-text-primary mb-6">Our Mission & Vision</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-text-primary mb-6">
+            Our Mission & Vision
+          </h2>
           <p className="text-text-secondary text-lg mb-4">
             We are innovating solutions to waste challenges that build a circular economy while creating jobs and a healing workplace for at-risk populations.
           </p>
-          <p className="text-text-secondary text-lg mb-8">A world where waste is transformed into a resource and communities are empowered.</p>
+          <p className="text-text-secondary text-lg mb-8">
+            A world where waste is transformed into a resource and communities are empowered.
+          </p>
 
           <div className="bg-brand-primary/10 p-6 rounded-2xl border border-brand-primary/20 text-left mb-8">
             <h3 className="text-xl font-bold text-brand-primary mb-2">How it all started</h3>
-            <p className="text-text-primary">When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She work[...]
+            <p className="text-text-primary">
+              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She work[...]
             </p>
           </div>
 
           <div className="bg-brand-primary/5 p-6 rounded-2xl border border-brand-primary/10 text-left">
             <h3 className="text-xl font-bold text-brand-primary mb-2">What does "Takataka" mean?</h3>
-            <p className="text-text-primary italic">"A Swahili word that generally means 'waste,' 'garbage,' 'rubbish,' or 'trash.' It can also refer to 'dirt' or 'soil'. The term is used to describe discarded or unwanted materials."</p>
+            <p className="text-text-primary italic">
+              "A Swahili word that generally means 'waste,' 'garbage,' 'rubbish,' or 'trash.' It can also refer to 'dirt' or 'soil'. The term is used to describe discarded or unwanted materials."
+            </p>
           </div>
         </div>
 
@@ -119,7 +129,12 @@ export function AboutMission() {
               const Icon = item.icon
               const isEven = index % 2 === 0
               return (
-                <div key={item.title} className={`relative flex flex-col md:flex-row items-center justify-between w-full ${isEven ? "md:flex-row-reverse" : ""}`}>
+                <div
+                  key={item.title}
+                  className={`relative flex flex-col md:flex-row items-center justify-between w-full ${
+                    isEven ? "md:flex-row-reverse" : ""
+                  }`}
+                >
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full border-4 border-bg-primary bg-brand-primary hidden md:flex items-center justify-center text-white">
                     <Icon className="w-5 h-5" />
                   </div>
@@ -225,7 +240,6 @@ export function AboutMission() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   )
