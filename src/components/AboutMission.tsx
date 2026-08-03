@@ -139,12 +139,12 @@ export function AboutMission() {
               name: 'Peter Okwoko',
               title: 'Founder',
               img: 'https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG',
-              text: `Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is the founder of AfriGreen Sustain and co-founder of Hashtag Gulu. Peter is a 2022 Echoing Green Fellow and the winner of the 2020 DANIDA Alumni Prize.`
+              text: `Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is[...]`
             }, {
               name: 'Paige Balcom',
               title: 'Co-Founder',
               img: 'https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG',
-              text: `Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...]`
+              text: `Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has [...]`
             }].map((founder, idx) => {
               const isVisible = openCard === idx || hoverCard === idx
               return (
@@ -193,7 +193,7 @@ export function AboutMission() {
                     ref={(el) => (cardRefs.current[idx] = el)}
                     className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border z-50 transition-all duration-300 ${
                       isVisible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
-                    } w-[90vw] max-w-[28rem] md:w-72 md:max-w-96`}
+                    } w-[90vw] max-w-[28rem] md:w-72 md:max-w-[28rem]`}
                     style={{
                       // ensure card never goes off-screen horizontally on very small viewports
                       // we center it by default, but allow the browser to reposition if needed
