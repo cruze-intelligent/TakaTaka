@@ -9,8 +9,8 @@ export function AboutMission() {
   const [hoverCard, setHoverCard] = React.useState<number | null>(null)
 
   // Refs to detect clicks inside the tile or card
-  const founderRefs = React.useRef<(HTMLDivElement | null)[]>([])
-  const cardRefs = React.useRef<(HTMLDivElement | null)[]>([])
+  const founderRefs = React.useRef<Array<HTMLDivElement | null>>([])
+  const cardRefs = React.useRef<Array<HTMLDivElement | null>>([])
 
   // Only install document handlers in the browser while a sticky card is open.
   React.useEffect(() => {
@@ -87,7 +87,7 @@ export function AboutMission() {
       title: "Co-Founder",
       img: "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG",
       text:
-        "Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...]",
+        "Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has received recognition for her work in sustainable engineering.",
     },
   ]
 
@@ -108,7 +108,7 @@ export function AboutMission() {
           <div className="bg-brand-primary/10 p-6 rounded-2xl border border-brand-primary/20 text-left mb-8">
             <h3 className="text-xl font-bold text-brand-primary mb-2">How it all started</h3>
             <p className="text-text-primary">
-              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She work[...]
+              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She worked with local partners and communities to better understand the downstream impacts of plastic pollution.
             </p>
           </div>
 
@@ -135,10 +135,12 @@ export function AboutMission() {
                     isEven ? "md:flex-row-reverse" : ""
                   }`}
                 >
+                  {/* Center Dot */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full border-4 border-bg-primary bg-brand-primary hidden md:flex items-center justify-center text-white">
                     <Icon className="w-5 h-5" />
                   </div>
 
+                  {/* Content Card */}
                   <motion.div
                     initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -240,6 +242,7 @@ export function AboutMission() {
             ))}
           </div>
         </div>
+
       </div>
     </section>
   )
