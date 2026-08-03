@@ -6,6 +6,30 @@ import { Heart, Activity, Factory } from "lucide-react"
 
 export function AboutMission() {
   const [openCard, setOpenCard] = React.useState<number | null>(null)
+  const [hoverCard, setHoverCard] = React.useState<number | null>(null)
+
+  // Refs to detect clicks inside the tile or card
+  const founderRefs = React.useRef<(HTMLDivElement | null)[]>([])
+  const cardRefs = React.useRef<(HTMLDivElement | null)[]>([])
+
+  React.useEffect(() => {
+    if (openCard === null) return
+
+    function handlePointerDown(e: PointerEvent) {
+      const target = e.target as Node
+      const founderEl = founderRefs.current[openCard]
+      const cardEl = cardRefs.current[openCard]
+
+      if (founderEl && founderEl.contains(target)) return
+      if (cardEl && cardEl.contains(target)) return
+
+      // clicked outside the open card and its founder tile -> close
+      setOpenCard(null)
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown)
+    return () => document.removeEventListener('pointerdown', handlePointerDown)
+  }, [openCard])
 
   const timeline = [
     {
@@ -111,59 +135,80 @@ export function AboutMission() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div
-              className="flex flex-col items-center text-center group relative"
-              onClick={() => setOpenCard(openCard === 0 ? null : 0)}
-              onMouseEnter={() => setOpenCard(0)}
-              onMouseLeave={() => setOpenCard(null)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') setOpenCard(openCard === 0 ? null : 0)
-                if (e.key === 'Escape') setOpenCard(null)
-              }}
-              onBlur={() => setOpenCard(null)}
-            >
-              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
-                <img src="https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG" alt="Peter Okwoko" className="w-full h-full object-cover" />
-              </div>
-              <h3 className="text-xl font-bold text-text-primary mb-2">Peter Okwoko</h3>
-              <p className="text-brand-primary font-medium mb-4">Founder</p>
-              
-              {/* Hover / Tap Card */}
-              <div className={`${openCard === 0 ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'} md:opacity-0 md:group-hover:opacity-100 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300 absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border z-50`}>
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
-                <p className="text-sm text-text-secondary text-left relative z-10">
-                  Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is the founder of AfriGreen Sustain and co-founder of Hashtag Gulu. Peter is a 2022 Echoing Green Fellow and the winner of the 2020 DANIDA Alumni Prize.
-                </p>
-              </div>
-            </div>
-            
-            <div
-              className="flex flex-col items-center text-center group relative"
-              onClick={() => setOpenCard(openCard === 1 ? null : 1)}
-              onMouseEnter={() => setOpenCard(1)}
-              onMouseLeave={() => setOpenCard(null)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') setOpenCard(openCard === 1 ? null : 1)
-                if (e.key === 'Escape') setOpenCard(null)
-              }}
-              onBlur={() => setOpenCard(null)}
-            >
-              <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
-                <img src="https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG" alt="Paige Balcom" className="w-full h-full object-cover" />
-              </div>
-              <h3 className="text-xl font-bold text-text-primary mb-2">Paige Balcom</h3>
-              <p className="text-brand-primary font-medium mb-4">Co-Founder</p>
-              
-              {/* Hover / Tap Card */}
-              <div className={`${openCard === 1 ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'} md:opacity-0 md:group-hover:opacity-100 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300 absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border z-50`}>
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
-                <p className="text-sm text-text-secondary text-left relative z-10">
-                  Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...] 
-                </p>
-              </div>
-            </div>
+            {[{
+              name: 'Peter Okwoko',
+              title: 'Founder',
+              img: 'https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG',
+              text: `Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is the founder of AfriGreen Sustain and co-founder of Hashtag Gulu. Peter is a 2022 Echoing Green Fellow and the winner of the 2020 DANIDA Alumni Prize.`
+            }, {
+              name: 'Paige Balcom',
+              title: 'Co-Founder',
+              img: 'https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG',
+              text: `Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...]`
+            }].map((founder, idx) => {
+              const isVisible = openCard === idx || hoverCard === idx
+              return (
+                <div
+                  key={founder.name}
+                  ref={(el) => (founderRefs.current[idx] = el)}
+                  className="flex flex-col items-center text-center group relative"
+                  onMouseEnter={() => setHoverCard(idx)}
+                  onMouseLeave={() => setHoverCard((current) => (current === idx ? null : current))}
+                  onFocus={() => setHoverCard(idx)}
+                  onBlur={(e) => {
+                    // keep hoverCard if focus moves inside the card
+                    const related = (e as React.FocusEvent).relatedTarget as Node | null
+                    const cardEl = cardRefs.current[idx]
+                    if (related && cardEl && cardEl.contains(related)) return
+                    setHoverCard((current) => (current === idx ? null : current))
+                  }}
+                  tabIndex={0}
+                >
+                  <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
+                    {/* Only clicking the photo toggles the persistent (sticky) card */}
+                    <img
+                      src={founder.img}
+                      alt={founder.name}
+                      className="w-full h-full object-cover cursor-pointer"
+                      onClick={(e) => {
+                        // prevent the outside document handler from immediately closing when toggling
+                        e.stopPropagation()
+                        setOpenCard((current) => (current === idx ? null : idx))
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.stopPropagation()
+                          setOpenCard((current) => (current === idx ? null : idx))
+                        }
+                      }}
+                      tabIndex={0}
+                    />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-text-primary mb-2">{founder.name}</h3>
+                  <p className="text-brand-primary font-medium mb-4">{founder.title}</p>
+
+                  {/* Hover / Tap / Sticky Card */}
+                  <div
+                    ref={(el) => (cardRefs.current[idx] = el)}
+                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border z-50 transition-all duration-300 ${
+                      isVisible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
+                    } w-[90vw] max-w-[28rem] md:w-72 md:max-w-96`}
+                    style={{
+                      // ensure card never goes off-screen horizontally on very small viewports
+                      // we center it by default, but allow the browser to reposition if needed
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                    }}
+                  >
+                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
+                    <p className="text-sm text-text-secondary text-left relative z-10">
+                      {founder.text}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
 
