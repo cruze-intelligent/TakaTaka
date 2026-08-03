@@ -5,6 +5,8 @@ import { motion } from "framer-motion"
 import { Heart, Activity, Factory } from "lucide-react"
 
 export function AboutMission() {
+  const [openCard, setOpenCard] = React.useState<number | null>(null)
+
   const timeline = [
     {
       title: "Waste Collection in Gulu",
@@ -49,7 +51,7 @@ export function AboutMission() {
           <div className="bg-brand-primary/10 p-6 rounded-2xl border border-brand-primary/20 text-left mb-8">
             <h3 className="text-xl font-bold text-brand-primary mb-2">How it all started</h3>
             <p className="text-text-primary">
-              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She worked with Gulu University students to conduct an assessment of plastic waste in Gulu and interview 200+ people. Paige also met Peter who was working on plastic waste education through an organization he started called AfriGreen Sustain. They partnered together to form Takataka Plastics, and in January 2020, they opened a small plastic collection center, hired three staff, built prototype machines, and received Takataka's first order. Now, Takataka Plastics can't produce enough to keep up with the demand for our wall tiles, so we're working on scaling up operations in Gulu City to make more products and create more jobs and a cleaner, healthier environment.
+              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She work[...]
             </p>
           </div>
 
@@ -73,7 +75,7 @@ export function AboutMission() {
                 <div key={item.title} className={`relative flex flex-col md:flex-row items-center justify-between w-full ${isEven ? 'md:flex-row-reverse' : ''}`}>
                   
                   {/* Center Dot */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full border-4 border-bg-primary bg-brand-primary hidden md:flex items-center justify-center text-white z-10 shadow-lg">
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full border-4 border-bg-primary bg-brand-primary hidden md:flex items-center justify-center text-white">
                     <Icon className="w-5 h-5" />
                   </div>
 
@@ -109,15 +111,26 @@ export function AboutMission() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="flex flex-col items-center text-center group relative">
+            <div
+              className="flex flex-col items-center text-center group relative"
+              onClick={() => setOpenCard(openCard === 0 ? null : 0)}
+              onMouseEnter={() => setOpenCard(0)}
+              onMouseLeave={() => setOpenCard(null)}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') setOpenCard(openCard === 0 ? null : 0)
+                if (e.key === 'Escape') setOpenCard(null)
+              }}
+              onBlur={() => setOpenCard(null)}
+            >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
                 <img src="https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG" alt="Peter Okwoko" className="w-full h-full object-cover" />
               </div>
               <h3 className="text-xl font-bold text-text-primary mb-2">Peter Okwoko</h3>
-              <p className="text-brand-primary font-medium mb-4">Co-Founder</p>
+              <p className="text-brand-primary font-medium mb-4">Founder</p>
               
-              {/* Hover Card */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
+              {/* Hover / Tap Card */}
+              <div className={`${openCard === 0 ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'} md:opacity-0 md:group-hover:opacity-100 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300 absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border z-50`}>
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
                 <p className="text-sm text-text-secondary text-left relative z-10">
                   Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is the founder of AfriGreen Sustain and co-founder of Hashtag Gulu. Peter is a 2022 Echoing Green Fellow and the winner of the 2020 DANIDA Alumni Prize.
@@ -125,18 +138,29 @@ export function AboutMission() {
               </div>
             </div>
             
-            <div className="flex flex-col items-center text-center group relative">
+            <div
+              className="flex flex-col items-center text-center group relative"
+              onClick={() => setOpenCard(openCard === 1 ? null : 1)}
+              onMouseEnter={() => setOpenCard(1)}
+              onMouseLeave={() => setOpenCard(null)}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') setOpenCard(openCard === 1 ? null : 1)
+                if (e.key === 'Escape') setOpenCard(null)
+              }}
+              onBlur={() => setOpenCard(null)}
+            >
               <div className="w-48 h-48 rounded-full overflow-hidden mb-6 border-4 border-white shadow-xl group-hover:scale-105 group-hover:shadow-[0_0_25px_rgba(34,197,94,0.3)] transition-all duration-300">
                 <img src="https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG" alt="Paige Balcom" className="w-full h-full object-cover" />
               </div>
               <h3 className="text-xl font-bold text-text-primary mb-2">Paige Balcom</h3>
               <p className="text-brand-primary font-medium mb-4">Co-Founder</p>
               
-              {/* Hover Card */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border opacity-0 translate-y-4 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-50">
+              {/* Hover / Tap Card */}
+              <div className={`${openCard === 1 ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'} md:opacity-0 md:group-hover:opacity-100 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-300 absolute top-full left-1/2 -translate-x-1/2 mt-4 w-72 md:w-96 bg-bg-surface p-6 rounded-2xl shadow-2xl border border-border z-50`}>
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
                 <p className="text-sm text-text-secondary text-left relative z-10">
-                  Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has received several fellowships and awards including those from the National Science Foundation, UC Berkeley, Fulbright Program, USAID, the Institute of International Education, and the Lemelson-MIT Student Prize.
+                  Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...] 
                 </p>
               </div>
             </div>
@@ -159,4 +183,3 @@ export function AboutMission() {
     </section>
   )
 }
-
