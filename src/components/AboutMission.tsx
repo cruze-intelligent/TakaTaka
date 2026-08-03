@@ -16,37 +16,48 @@ export function AboutMission() {
     if (openCard === null) return
 
     function handlePointerDown(e: PointerEvent) {
-      const target = e.target as Node
+      const target = e.target as Node | null
       const founderEl = founderRefs.current[openCard]
       const cardEl = cardRefs.current[openCard]
 
-      if (founderEl && founderEl.contains(target)) return
-      if (cardEl && cardEl.contains(target)) return
+      if (target && founderEl && founderEl.contains(target)) return
+      if (target && cardEl && cardEl.contains(target)) return
 
       // clicked outside the open card and its founder tile -> close
       setOpenCard(null)
     }
 
-    document.addEventListener('pointerdown', handlePointerDown)
-    return () => document.removeEventListener('pointerdown', handlePointerDown)
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpenCard(null)
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown)
+    document.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
   }, [openCard])
 
   const timeline = [
     {
       title: "Waste Collection in Gulu",
-      description: "Tackling the accumulation of plastic waste in our environment due to limited recycling infrastructure.",
+      description:
+        "Tackling the accumulation of plastic waste in our environment due to limited recycling infrastructure.",
       icon: Activity,
     },
     {
       title: "Youth Employment & Healing",
-      description: "Creating income opportunities for the marginalized and opportunities for healing for trauma survivors.",
+      description:
+        "Creating income opportunities for the marginalized and opportunities for healing for trauma survivors.",
       icon: Heart,
     },
     {
       title: "Machinery Manufacturing",
-      description: "Developing ground-breaking technology and designing machines to safely process plastic locally.",
+      description:
+        "Developing ground-breaking technology and designing machines to safely process plastic locally.",
       icon: Factory,
-    }
+    },
   ]
 
   const partners = [
@@ -57,7 +68,24 @@ export function AboutMission() {
     "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/a34de5fc-3ac7-4cd0-a558-c348b27d2423/NATURES.png",
     "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/93d1b0ef-430d-41a5-bf33-e71e3feb9b22/NWSC.jpg",
     "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/982be887-8c29-46c1-920b-0afe93c9f1c9/stanford.png",
-    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/36cc46a4-cea8-415f-8be1-ec017743def0/RuddSquareLogo_Blue.png"
+    "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/36cc46a4-cea8-415f-8be1-ec017743def0/RuddSquareLogo_Blue.png",
+  ]
+
+  const founders = [
+    {
+      name: "Peter Okwoko",
+      title: "Founder",
+      img: "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG",
+      text:
+        "Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is the founder of AfriGreen Sustain and co-founder of Hashtag Gulu. Peter is a 2022 Echoing Green Fellow and the winner of the 2020 DANIDA Alumni Prize.",
+    },
+    {
+      name: "Paige Balcom",
+      title: "Co-Founder",
+      img: "https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG",
+      text:
+        "Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has rec[...].",
+    },
   ]
 
   return (
@@ -68,43 +96,35 @@ export function AboutMission() {
           <p className="text-text-secondary text-lg mb-4">
             We are innovating solutions to waste challenges that build a circular economy while creating jobs and a healing workplace for at-risk populations.
           </p>
-          <p className="text-text-secondary text-lg mb-8">
-            A world where waste is transformed into a resource and communities are empowered.
-          </p>
-          
+          <p className="text-text-secondary text-lg mb-8">A world where waste is transformed into a resource and communities are empowered.</p>
+
           <div className="bg-brand-primary/10 p-6 rounded-2xl border border-brand-primary/20 text-left mb-8">
             <h3 className="text-xl font-bold text-brand-primary mb-2">How it all started</h3>
-            <p className="text-text-primary">
-              When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She work[...]
+            <p className="text-text-primary">When Paige started grad school at UC Berkeley in Fall 2017, she wanted to work on problems that were affecting her Ugandan friends, so she started researching plastic waste. She work[...]
             </p>
           </div>
 
           <div className="bg-brand-primary/5 p-6 rounded-2xl border border-brand-primary/10 text-left">
             <h3 className="text-xl font-bold text-brand-primary mb-2">What does "Takataka" mean?</h3>
-            <p className="text-text-primary italic">
-              "A Swahili word that generally means 'waste,' 'garbage,' 'rubbish,' or 'trash.' It can also refer to 'dirt' or 'soil'. The term is used to describe discarded or unwanted materials."
-            </p>
+            <p className="text-text-primary italic">"A Swahili word that generally means 'waste,' 'garbage,' 'rubbish,' or 'trash.' It can also refer to 'dirt' or 'soil'. The term is used to describe discarded or unwanted materials."</p>
           </div>
         </div>
 
         {/* Timeline */}
         <div className="max-w-4xl mx-auto relative mb-24 mt-12">
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-border hidden md:block"></div>
-          
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-border hidden md:block" />
+
           <div className="space-y-12">
             {timeline.map((item, index) => {
               const Icon = item.icon
               const isEven = index % 2 === 0
               return (
                 <div key={item.title} className={`relative flex flex-col md:flex-row items-center justify-between w-full ${isEven ? 'md:flex-row-reverse' : ''}`}>
-                  
-                  {/* Center Dot */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full border-4 border-bg-primary bg-brand-primary hidden md:flex items-center justify-center text-white">
                     <Icon className="w-5 h-5" />
                   </div>
 
-                  {/* Content Card */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
@@ -129,23 +149,11 @@ export function AboutMission() {
         <div className="max-w-4xl mx-auto bg-brand-primary/5 rounded-3xl p-8 md:p-12 border border-brand-primary/10 mb-20">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-text-primary mb-4">Meet The Founders</h2>
-            <p className="text-text-secondary">
-              Innovators dedicated to social impact and sustainable engineering.
-            </p>
+            <p className="text-text-secondary">Innovators dedicated to social impact and sustainable engineering.</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {[{
-              name: 'Peter Okwoko',
-              title: 'Founder',
-              img: 'https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/b6da9f3e-0f61-458e-8b3e-75b4e3fee32b/Peter+Okwoko.JPG',
-              text: `Peter is a former lecturer of IT at Gulu University. He holds an MSc from Aalborg University, Denmark. Passionate about creating opportunities for disadvantaged people, he is[...]`
-            }, {
-              name: 'Paige Balcom',
-              title: 'Co-Founder',
-              img: 'https://images.squarespace-cdn.com/content/v1/5d74582aa57e2229d4fe219b/1620066601423-OPAOJE30C01H2PBLZCLI/DSC02482.JPG',
-              text: `Paige holds a PhD in Mechanical Engineering from UC Berkeley. Originally from the US, Paige has been working in Northern Uganda since 2016. She pitched on Shark Tank and has [...]`
-            }].map((founder, idx) => {
+            {founders.map((founder, idx) => {
               const isVisible = openCard === idx || hoverCard === idx
               return (
                 <div
@@ -202,9 +210,7 @@ export function AboutMission() {
                     }}
                   >
                     <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-bg-surface border-t border-l border-border rotate-45"></div>
-                    <p className="text-sm text-text-secondary text-left relative z-10">
-                      {founder.text}
-                    </p>
+                    <p className="text-sm text-text-secondary text-left relative z-10">{founder.text}</p>
                   </div>
                 </div>
               )
